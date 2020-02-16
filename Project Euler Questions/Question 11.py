@@ -34,10 +34,11 @@ horzHolder = []
 while(row != 16):
     column = 0
     while(column != 16):
-        diagRMult = int(inputValue[row][column]) * \
-        int(inputValue[row + 1][column + 1]) * \
-        int(inputValue[row + 2][column + 2]) * \
-        int(inputValue[row + 3][column + 3])
+        diagRMult = (
+            int(inputValue[row][column]) *
+            int(inputValue[row + 1][column + 1]) *
+            int(inputValue[row + 2][column + 2]) *
+            int(inputValue[row + 3][column + 3]))
         diagRHolder.append(diagRMult)
         column += 1
     row += 1
@@ -48,10 +49,11 @@ column = 0
 while(row != 16):
     column = 0
     while(column != 20):
-        vertMult = int(inputValue[row][column]) * \
-        int(inputValue[row + 1][column]) * \
-        int(inputValue[row + 2][column]) * \
-        int(inputValue[row + 3][column])
+        vertMult = (
+            int(inputValue[row][column]) *
+            int(inputValue[row + 1][column]) *
+            int(inputValue[row + 2][column]) *
+            int(inputValue[row + 3][column]))
         vertHolder.append(vertMult)
         column += 1
     row += 1
@@ -62,10 +64,11 @@ column = 0
 while(row != 16):
     column = 0
     while(column + 3 != 20):
-        diagLMult = int(inputValue[row][column + 3]) * \
-        int(inputValue[row + 1][column + 2]) * \
-        int(inputValue[row + 2][column + 1]) * \
-        int(inputValue[row + 3][column])
+        diagLMult = (
+            int(inputValue[row][column + 3]) *
+            int(inputValue[row + 1][column + 2]) *
+            int(inputValue[row + 2][column + 1]) *
+            int(inputValue[row + 3][column]))
         diagLHolder.append(diagLMult)
         column += 1
     row += 1
@@ -76,10 +79,11 @@ column = 0
 while(row != 20):
     column = 0
     while(column != 16):
-        horzMult = int(inputValue[row][column]) * \
-        int(inputValue[row][column + 1]) * \
-        int(inputValue[row][column + 2]) * \
-        int(inputValue[row][column + 3])
+        horzMult = (
+            int(inputValue[row][column]) *
+            int(inputValue[row][column + 1]) *
+            int(inputValue[row][column + 2]) *
+            int(inputValue[row][column + 3]))
         horzHolder.append(horzMult)
         column += 1
     row += 1
