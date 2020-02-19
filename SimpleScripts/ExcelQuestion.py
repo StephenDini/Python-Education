@@ -1,20 +1,30 @@
-import pandas
-from pathlib import Path
+# Using pandas to read the Data and openpyxl's workbook to
+# create a new book and save this to a new excel file.
 
+import pandas
+import pprint
+from openpyxl import Workbook
+
+# File in the same folder.
 location = "Financial Sample.xlsx"
-wb =  pandas.read_excel(location)
-test1 = wb['Segment']
-writer = pandas.ExcelWriter("output.xlsx", engine="xlsxwriter")
-# print(wb["Government"])
-print(wb.columns.ravel())
-holder = pandas.DataFrame(wb.columns.ravel())
-print(holder)
-# print(test1)
+
+# Read in data from file
+wb = pandas.read_excel(location)
+
+# Create a new workbook and activate it
+book = Workbook()
+holder = book.active
+holder.title = ('Test')
+
+# location of values
 counter = 0
-# newSheet = wb.header()
-# print(newSheet)
+
+
+# using a for loop and if statements to append data to the workbook
 for i in wb['Segment']:
     if (i == 'Government'):
-        holder.append(wb.iloc[counter])
+        holder.append(wb.iloc[counter].values.tolist())
     counter += 1
-print(holder)
+
+# Save the file
+book.save(filename="output.xlsx")
