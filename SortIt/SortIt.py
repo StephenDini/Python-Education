@@ -6,7 +6,10 @@
 # Videos > Tv Shows > Genre > SHOW NAME
 # Videos > Anime > Genre > SHOW NAME
 from pathlib import Path
+import imdb 
 
+# Movie database initializing
+movieDatabase = imdb.IMDb()
 
 # Video Directory(ies)
 
