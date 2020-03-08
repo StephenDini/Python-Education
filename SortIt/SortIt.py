@@ -6,52 +6,34 @@
 # Videos > Tv Shows > Genre > SHOW NAME
 # Videos > Anime > Genre > SHOW NAME
 from pathlib import Path
-import imdb 
-
-# Movie database initializing
-movieDatabase = imdb.IMDb()
-
-# Video Directory(ies)
-
-# Main Folder to organize into. First run it will organize this folder.
-videoMain = ""
+import sys
+import re
+sys.path.insert(1, 'D:\Projects\Dev\Python Education\library')
+import normalizeFile as nf
 
 
-# Folder(s) to import and organize into videoMain.
-# if blank it will just organize the videoMain
-importFolders = ""
+# Directory Location(s)
+sortPaths = ['E:\Anime']
+sortablePaths = []
 
-# Organization
+for currPaths in sortPaths:
+    sortablePaths = Path(currPaths)
+    testDir = list(sortablePaths.glob('*.*'))
 
-# Index all files.
+regex = re.compile(r'(.db)')
+print(testDir)
+for x in testDir:
+    tester = regex.findall(str(x))
+    print(tester)
+    if(tester != ['.db']):
+        print(True)
 
-# Check if a database exists,
-#   Check if new files,
-#       Update
-# Else scrape file information and save into a database
 
-# Create new Folders if not already there. [Movies, TV Shows, Anime, etc.]
+# Check for files in the root level of the directory
+# for currPaths in sortablePaths:
+#     for x in currPaths:
+#         files = list(x.glob('*.*'))
 
-# organize based on Movie, TV Show, Anime
-
-# Organize Movies based on Genre
-
-# Each Movie in its own folder.
-
-# Grab Subtitles, Movie Poster, and Marquee/landscape
-
-# Organize TV Shows based on Genre
-
-# Each TV Show in its own folder.
-
-# Grab Poster, Landscape
-
-# Each episode in its own folder.
-
-# Grab Subtiles
-
-# Organize Anime based on Genre
-
-# Each Show in its own folder
-
-# Grab a Poster, Landscape
+# print(x)
+# regex = re.compile(r'.db')
+# testMatch = regex.match()
