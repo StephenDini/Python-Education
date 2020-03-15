@@ -10,6 +10,20 @@ def stripSpecial(TEXT):
     return re.split(r'(\[.*?\]) | (\(.*?\))', TEXT)
 
 
+def stripEpisode(TEXT):
+    match = re.split(r'(ep\d\d|Ep\d\d|EP\d\d|E\d\d|e\d\d)', TEXT)
+    # holder = match.match(TEXT)
+    if(len(match) > 1):
+        matchSpec = re.split(r'(\[\')', match[0])
+        # print(matchSpec[2])
+        return matchSpec[2]
+
+
+def findShowTitle(TEXT):
+    match = re.compile(r'(?<=\w\\).*?(?= -|-)')
+    return match.findall(TEXT)
+
+
 def normalizeSpaces(TEXT):
     return TEXT.replace('_', ' ')
     # TEXT.replace('-', ' ')
