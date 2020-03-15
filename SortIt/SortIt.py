@@ -8,7 +8,7 @@
 from pathlib import Path
 import sys
 import re
-sys.path.insert(1, 'D:\Projects\Dev\Python Education\library')
+sys.path.insert(1, 'C:\Dev\Python-Education\library')
 import normalizeFile as nf
 
 
