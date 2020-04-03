@@ -16,7 +16,7 @@ def stripEpisode(TEXT):
     if(len(match) > 1):
         matchSpec = re.split(r'(\[\')', match[0])
         # print(matchSpec[2])
-        return matchSpec[2]
+        return str(matchSpec[2]).strip()
 
 
 def findShowTitle(TEXT):
