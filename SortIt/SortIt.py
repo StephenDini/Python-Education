@@ -18,18 +18,27 @@ import normalizeFile as nf
 from fuzzywuzzy import fuzz
 
 # Directory Location(s)
+# Will sort multiple paths INPROG
 sortPaths = ['E:\Anime']
+
+# List of paths that will be iterated through.
 sortablePaths = []
+
+# List containing the Files, Folders, and Dirs
 allFolders = []
 allDirs = []
 allFiles = []
+
+# List of Directories that are a possible match to the File
 matchedDirs = []
 
-
+# Find the paths for each folder inside the directories.
+# MULTIPLE DIRECTORS NOT IMPLEMENTED
 for currPaths in sortPaths:
     sortablePaths = Path(currPaths)
     testDir = list(sortablePaths.glob('*.*'))
 
+# Walk the Directories
 for dir, subDir, files in os.walk('E:\Anime'):
     for dirName in dir:
         allDirs.append(dirName)
@@ -38,22 +47,38 @@ for dir, subDir, files in os.walk('E:\Anime'):
     for fileName in files:
         allFiles.append(fileName)
 
+# Set regex to search for only certain files
 regex = re.compile(r'(.db|.avi|.mp4|.mkv)')
 # regexFileExtensions = re.compile(r'(.avi|.mp4|.mkv)')
 
-print(testDir)
+# print(testDir)
 
+# Searches through the directories for the matching file extensions.
 for x in testDir:
     tester = regex.findall(str(x))
     # print(tester)
+
+    # Catch the invisible thumbnail files and do nothing
     if(tester == ['.db']):
         print('---------------------------------------------------')
         print()
         print('---------------------------------------------------')
         print('Found a Thumbnail, disregarding')
+
+    # Catch the correct file path and sort it
     elif(tester == ['.mkv'] or ['.avi'] or ['.mp4']):
+
+        # Before split
+        print("Before Split: " + str(x))
+
+        # split once
         firstSplit = nf.findShowTitle(str(x))
+        print("After First Split: " + str(firstSplit))
+
+        # Last Split to extract just the title.
         title = nf.stripEpisode(str(firstSplit))
+        print("After Last Split: " + str(title))
+
         if title:
             print('---------------------------------------------------')
             print()
@@ -63,10 +88,6 @@ for x in testDir:
 
             # print(firstSplit)
             print('Title Only: ' + str(title))
-        # if( title == "Rosario to Vampire"):
-        #     print("we do not have a problem")
-        # else:
-        #     print("we have a problem.")
 
         #  Find if folder exits for found title
             for i in allFolders:
