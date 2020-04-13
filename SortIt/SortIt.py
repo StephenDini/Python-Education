@@ -49,16 +49,14 @@ for dir, subDir, files in os.walk('E:\Anime'):
 
 # Set regex to search for only certain files
 regex = re.compile(r'(.db|.avi|.mp4|.mkv)')
-# regexFileExtensions = re.compile(r'(.avi|.mp4|.mkv)')
-
-# print(testDir)
-
 
 def whichFolder(MATCHES, TITLE, FILEPATH):
-    # If matchedDirs is larger than 1, more than one folder was found
-    # Ask the user to select which one is the correct folder.
+    """
+    If matchedDirs is larger than 1, more than one folder was found
+    Ask the user to select which one is the correct folder.
+    """
     choiceNumber = 1
-    print("===============================================================================================")
+    print("====================================== Folder Selection ======================================")
     print("Title: " + TITLE)
     print('0: Create a new Folder')
 
@@ -72,6 +70,15 @@ def whichFolder(MATCHES, TITLE, FILEPATH):
             heldInput = int(input('Please enter the correct folder number, use 0 if you would like to '
                                   'create a new folder.'))
             print('Your choice was: ' + str(heldInput))
+            print(matchedDirs[heldInput-1])
+
+            # split the end of the files path and append the chosen matchedDir
+            dirLoc = str(FILEPATH).split(TITLE)
+            fLoc = dirLoc[0] + matchedDirs[heldInput-1]
+
+            # Uncomment the line below to enable actual file manipulation.
+            # shutil.move(str(FILEPATH), str(fLoc))
+
         except ValueError:
             print('A number between 0 and ' + str(len(MATCHES)) + ' is required')
 
@@ -79,10 +86,24 @@ def whichFolder(MATCHES, TITLE, FILEPATH):
     return []
 
 
-# def moveFolder(oldLoc, newLoc):
-#     continue
+def verboseCheck(on):
+    """ If true it will ask if verbose should be on, otherwise verbose stays on."""
+    if(on):
+        verboseQuestion = 'a'
+
+        while verboseQuestion != "y" or verboseQuestion != "n":
+            verboseQuestion = str(input("Would you like to turn on verbose mode? (y)es or (n)o"))
+            if verboseQuestion != "y" or verboseQuestion != "n":
+                break
+        if verboseQuestion == 'y':
+            return True
+        else:
+            return False
+    else:
+        return True
 
 
+verbose = verboseCheck(False)
 
 # Searches through the directories for the matching file extensions.
 for x in testDir:
@@ -91,34 +112,40 @@ for x in testDir:
 
     # Catch the invisible thumbnail files and do nothing
     if(tester == ['.db']):
-        print('---------------------------------------------------')
-        print()
-        print('---------------------------------------------------')
-        print('Found a Thumbnail, disregarding')
+        if verbose:
+            print('---------------------------------------------------')
+            print('          Found a Thumbnail, disregarding          ')
+            print('---------------------------------------------------')
 
     # Catch the correct file path and sort it
     elif(tester == ['.mkv'] or ['.avi'] or ['.mp4']):
-
-        # Before split
-        print("Before Split: " + str(x))
+        if verbose:
+            print("-------------------------Splitting--------------------------")
+            # Before split
+            print("Before Split: " + str(x))
 
         # split once
         firstSplit = nf.findShowTitle(str(x))
-        print("After First Split: " + str(firstSplit))
+
+        if verbose:
+            print("After First Split: " + str(firstSplit))
 
         # Last Split to extract just the title.
         title = nf.stripEpisode(str(firstSplit))
-        print("After Last Split: " + str(title))
+        if verbose:
+            print("After Last Split: " + str(title))
+            print("-----------------------EndSplitting--------------------------")
 
         if title:
-            print('---------------------------------------------------')
-            print()
-            print('---------------------------------------------------')
-            print('Found a Video')
-            print('File Path: ' + str(x))
 
-            # print(firstSplit)
-            print('Title Only: ' + str(title))
+            if verbose:
+                print('---------------------------------------------------')
+                print('                   Found a Video                   ')
+                print('---------------------------------------------------')
+                print('File Path: ' + str(x))
+
+                # print(firstSplit)
+                print('Title Only: ' + str(title))
 
             #  Find if folder exits for found title
             folderWalk = -1
@@ -126,35 +153,36 @@ for x in testDir:
             for i in allFolders:
 
                 folderWalk += 1
+                # Saves matched folder location as first of a list
                 if fuzz.ratio(i, title) >= 90:
-                    print(title)
-                    print("A folder already exists.")
-                    print(fuzz.ratio(i, title))
+                    # print("A folder already exists.")
 
                     savedWalk.append(folderWalk)
-                    print(savedWalk[0])
-                    # if len(matchedDirs) > 1:
-                    #     matchedDirs = []
+
+                # Else saves the possibles matches into a list
                 elif fuzz.partial_ratio(i,title) > 90:
-                    print("Saving possible match:  " + i)
+                    # print("Saving possible match:  " + i)
                     matchedDirs.append(i)
+
                     savedWalk.append(folderWalk)
 
 
             if len(matchedDirs) > 1:
                 matchedDirs = whichFolder(matchedDirs, title,x)
             else:
-                print("Moving file with the title: " + title)
-                print("File location: " + str(x)) # need to snip the end of the file path and save this, then append the folder name to it for the transfer.
-                folderDirLoc = str(x).split(title)
-                print(savedWalk)
-                print(len(folderName))
-                folderLoc = folderDirLoc[0] + allFolders[savedWalk[0]]
-                print("File destination: " + folderLoc)
+                if verbose:
+                    print("Moving file with the title: " + title)
+                    print("File location: " + str(x)) # need to snip the end of the file path and save this, then append the folder name to it for the transfer.
 
+                folderDirLoc = str(x).split(title)
+
+                folderLoc = folderDirLoc[0] + allFolders[savedWalk[0]]
+                if verbose:
+                    print("File destination: " + folderLoc)
+                    print(title + " moved.")
                 # Uncomment the line below to enable actual file manipulation.
                 # shutil.move(str(x), str(folderLoc))
-                print(title + " moved.")
+
 
 
 
