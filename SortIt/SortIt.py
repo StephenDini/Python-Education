@@ -53,6 +53,37 @@ regex = re.compile(r'(.db|.avi|.mp4|.mkv)')
 
 # print(testDir)
 
+
+def whichFolder(MATCHES, TITLE, FILEPATH):
+    # If matchedDirs is larger than 1, more than one folder was found
+    # Ask the user to select which one is the correct folder.
+    choiceNumber = 1
+    print("===============================================================================================")
+    print("Title: " + TITLE)
+    print('0: Create a new Folder')
+
+    for i in MATCHES:
+        print(str(choiceNumber) + ': ' + i)
+        choiceNumber += 1
+
+    heldInput = -1
+    while heldInput < 0 or heldInput > len(MATCHES):
+        try:
+            heldInput = int(input('Please enter the correct folder number, use 0 if you would like to '
+                                  'create a new folder.'))
+            print('Your choice was: ' + str(heldInput))
+        except ValueError:
+            print('A number between 0 and ' + str(len(MATCHES)) + ' is required')
+
+    print("===============================================================================================")
+    return []
+
+
+# def moveFolder(oldLoc, newLoc):
+#     continue
+
+
+
 # Searches through the directories for the matching file extensions.
 for x in testDir:
     tester = regex.findall(str(x))
@@ -89,41 +120,42 @@ for x in testDir:
             # print(firstSplit)
             print('Title Only: ' + str(title))
 
-        #  Find if folder exits for found title
+            #  Find if folder exits for found title
+            folderWalk = -1
+            savedWalk = []
             for i in allFolders:
+
+                folderWalk += 1
                 if fuzz.ratio(i, title) >= 90:
                     print(title)
                     print("A folder already exists.")
                     print(fuzz.ratio(i, title))
-                    if len(matchedDirs) > 1:
-                        matchedDirs = []
+
+                    savedWalk.append(folderWalk)
+                    print(savedWalk[0])
+                    # if len(matchedDirs) > 1:
+                    #     matchedDirs = []
                 elif fuzz.partial_ratio(i,title) > 90:
                     print("Saving possible match:  " + i)
                     matchedDirs.append(i)
+                    savedWalk.append(folderWalk)
+
 
             if len(matchedDirs) > 1:
-                choiceNumber = 1
+                matchedDirs = whichFolder(matchedDirs, title,x)
+            else:
+                print("Moving file with the title: " + title)
+                print("File location: " + str(x)) # need to snip the end of the file path and save this, then append the folder name to it for the transfer.
+                folderDirLoc = str(x).split(title)
+                print(savedWalk)
+                print(len(folderName))
+                folderLoc = folderDirLoc[0] + allFolders[savedWalk[0]]
+                print("File destination: " + folderLoc)
 
-                print('0: Create a new Folder')
+                # Uncomment the line below to enable actual file manipulation.
+                # shutil.move(str(x), str(folderLoc))
+                print(title + " moved.")
 
-                for i in matchedDirs:
-                    print(str(choiceNumber) + ': ' + i)
-                    choiceNumber += 1
-
-                heldInput = -1
-                while heldInput < 0 or heldInput > len(matchedDirs):
-                    try:
-                        heldInput = int(input('Please enter the correct folder number, use 0 if you would like to '
-                                              'create a new folder.'))
-                        print('Your choice was: ' + str(heldInput))
-                    except ValueError:
-                        print('A number between 0 and ' + str(len(matchedDirs)) + ' is required')
-
-
-                matchedDirs = []
-
-
-        # shutil.move()
 
 
 # for dirpath, dirnames, files in os.walk('E:\Anime'):

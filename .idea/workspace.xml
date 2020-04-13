@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb83462b-a05d-4f6d-9a68-66bf9d985859" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Python-Education.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Python-Education.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SortIt/SortIt.py" beforeDir="false" afterPath="$PROJECT_DIR$/SortIt/SortIt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/normalizeFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/library/normalizeFile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,14 +18,14 @@
   <component name="ProjectId" id="1Z8pQXjuAiOpavVmQJQFVI3hmEq" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager" selected="Python.SortIt">
     <configuration name="Question 1" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -111,7 +111,9 @@
       <workItem from="1585779650665" duration="1808000" />
       <workItem from="1585825339559" duration="5642000" />
       <workItem from="1585955660025" duration="5313000" />
-      <workItem from="1586113598534" duration="2044000" />
+      <workItem from="1586113598534" duration="2091000" />
+      <workItem from="1586431018731" duration="264000" />
+      <workItem from="1586431984272" duration="622000" />
     </task>
     <servers />
   </component>
@@ -119,50 +121,76 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1165" y="379" key="#Notifications" timestamp="1586437868155">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1165" y="379" key="#Notifications/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586437868155" />
+    <state x="989" y="115" key="#SortIt" timestamp="1586432031233">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="989" y="115" key="#SortIt/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586432031233" />
     <state x="1087" y="308" key="FileChooserDialogImpl" timestamp="1584230937955">
       <screen x="0" y="0" width="2560" height="1053" />
     </state>
     <state x="1087" y="308" key="FileChooserDialogImpl/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1584230937955" />
-    <state width="2519" height="260" key="GridCell.Tab.0.bottom" timestamp="1586115618104">
+    <state width="2539" height="275" key="GridCell.Tab.0.bottom" timestamp="1586801474325">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2519" height="260" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586115618104" />
+    <state width="2539" height="275" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586801474325" />
     <state width="2519" height="265" key="GridCell.Tab.0.bottom/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1585098646459" />
-    <state width="2519" height="260" key="GridCell.Tab.0.center" timestamp="1586115618104">
+    <state width="2539" height="275" key="GridCell.Tab.0.center" timestamp="1586801474325">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2519" height="260" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586115618104" />
+    <state width="2539" height="275" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586801474325" />
     <state width="2519" height="265" key="GridCell.Tab.0.center/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1585098646459" />
-    <state width="2519" height="260" key="GridCell.Tab.0.left" timestamp="1586115618104">
+    <state width="2539" height="275" key="GridCell.Tab.0.left" timestamp="1586801474325">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2519" height="260" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586115618104" />
+    <state width="2539" height="275" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586801474325" />
     <state width="2519" height="265" key="GridCell.Tab.0.left/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1585098646459" />
-    <state width="2519" height="260" key="GridCell.Tab.0.right" timestamp="1586115618104">
+    <state width="2539" height="275" key="GridCell.Tab.0.right" timestamp="1586801474325">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2519" height="260" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586115618104" />
+    <state width="2539" height="275" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586801474325" />
     <state width="2519" height="265" key="GridCell.Tab.0.right/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1585098646459" />
-    <state x="810" y="187" width="986" height="750" key="SettingsEditor" timestamp="1584299164196">
-      <screen x="0" y="0" width="2560" height="1053" />
-    </state>
-    <state x="810" y="187" width="986" height="750" key="SettingsEditor/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1584299164196" />
-    <state x="993" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1586113598744">
+    <state width="2539" height="340" key="GridCell.Tab.1.bottom" timestamp="1586459691703">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="993" y="363" key="com.intellij.ide.util.TipDialog/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586113598744" />
+    <state width="2539" height="340" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586459691703" />
+    <state width="2539" height="340" key="GridCell.Tab.1.center" timestamp="1586459691703">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2539" height="340" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586459691703" />
+    <state width="2539" height="340" key="GridCell.Tab.1.left" timestamp="1586459691703">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2539" height="340" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586459691703" />
+    <state width="2539" height="340" key="GridCell.Tab.1.right" timestamp="1586459691703">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2539" height="340" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586459691703" />
+    <state x="436" y="55" width="1853" height="894" key="SettingsEditor" timestamp="1586433661575">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="436" y="55" width="1853" height="894" key="SettingsEditor/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586433661575" />
+    <state x="810" y="187" width="986" height="750" key="SettingsEditor/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1584299164196" />
+    <state width="1288" height="528" key="XDebugger.FullValuePopup" timestamp="1586459628533">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1288" height="528" key="XDebugger.FullValuePopup/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586459628533" />
+    <state x="993" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1586431984669">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="993" y="363" key="com.intellij.ide.util.TipDialog/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586431984669" />
     <state x="993" y="368" key="com.intellij.ide.util.TipDialog/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1585091265269" />
     <state x="1069" y="218" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1584281279078">
       <screen x="0" y="0" width="2560" height="1053" />
     </state>
     <state x="1069" y="218" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1584281279078" />
-    <state x="943" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1584566494951">
-      <screen x="0" y="0" width="2560" height="1053" />
+    <state x="943" y="227" width="672" height="670" key="search.everywhere.popup" timestamp="1586431703294">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
+    <state x="943" y="227" width="672" height="670" key="search.everywhere.popup/0.0.2560.1040/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1040" timestamp="1586431703294" />
     <state x="943" y="230" width="672" height="678" key="search.everywhere.popup/0.0.2560.1053/2560.0.2560.1080/1583.-1080.1920.1080@0.0.2560.1053" timestamp="1584566494951" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Python_Education$SortIt.coverage" NAME="SortIt Coverage Results" MODIFIED="1586115618099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SortIt" />
-    <SUITE FILE_PATH="coverage/Python_Education$Question_1.coverage" NAME="Question 1 Coverage Results" MODIFIED="1584281285035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Project Euler Questions" />
   </component>
 </project>
