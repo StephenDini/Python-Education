@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Sample PyQt5 app to demonstrate keybinder capabilities."""
-
+import os
 import sys
 
 # Testing imports
@@ -9,9 +9,9 @@ import pprint as pp
 import xmltodict as xmltodict
 import xml.etree.ElementTree as ET
 
-from PyQt5 import QtWidgets, QtCore, uic
+from PyQt5 import QtWidgets, QtCore, uic, QtGui
 from PyQt5.QtCore import QAbstractNativeEventFilter, QAbstractEventDispatcher
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QSizePolicy
 
 from pyqtkeybind import keybinder
 
@@ -44,6 +44,11 @@ class ImportProfile(profilePathList):
 
             # pp.pprint(root)
 
+        # Key connections: key shortcut, key bound, modifier [click, longpress]
+        keyCons = list()
+        # Key connection page: each value is a new
+        keyConPage = list()
+
         # A list of multi key button presses (ie: shortcuts)
         keybindings = dict()
         # Once a full sequence of shortcuts are found, we append them to a list
@@ -63,149 +68,95 @@ class ImportProfile(profilePathList):
         # Search through xml for KeyStokes and Save into a list of list
         # Top list contains each list of keystrokes
         for root in rootContainer:
-            parent_map = {c: p for p in root.iter() for c in p}
+            # parent_map = {c: p for p in root.iter() for c in p}
             # print(list(parent_map))
 
             # Find the location of keyStroke's ancestor, We use the ancestor to navigate the keybindings.
+            boundSet = 0
+            profileName = root.find('.//name')
+
             for parent in root.findall('.//keyStroke/../../../..'):
-                boundSet = 0
+
                 # drop into the child of the parent.
                 for child in parent:
 
                     # print("Child Tag: " + child.tag)
+                    nameTag = child.find('ptr_wrapper/data/base/name')
                     keyStrokeChild = child.find('ptr_wrapper/data/keyStroke')
                     keyNameChild = child.find('ptr_wrapper/data/keyName')
                     keyBound = child.find('.//second/..')
+                    strokeContainer = None
                     # print(keyBound)
                     # print(keyStrokeChild)
+
+                    if nameTag is not None:
+                        if nameTag.text is not None:
+                            if strokeContainer is None:
+                                strokeContainer = nameTag.text
+                            else:
+                                strokeContainer = strokeContainer + ', ' + nameTag.text
+                            # print(nameTag.text)
 
                     if keyNameChild is not None:
                         if keyNameChild.text is not None:
                             # pass
-                            print('This should be a non empty Key: ' + keyNameChild.text)
-                            keysetList.update({boundSet : keyNameChild.text})
+                            # print('This should be a non empty Key: ' + keyNameChild.text)
+                            keysetList.update({boundSet: keyNameChild.text})
+                            if strokeContainer is None:
+                                strokeContainer = keyNameChild.text
+                            else:
+                                strokeContainer = strokeContainer + ', ' + keyNameChild.text
 
                     if keyStrokeChild is not None:
                         if keyStrokeChild.text is not None:
-                            print('This Should be a list of Key Strokes: ')
-                            strokeContainer = None
+                            # print('This Should be a list of Key Strokes: ')
                             for value in keyStrokeChild:
                                 if strokeContainer is None:
                                     strokeContainer = value.text
                                 else:
                                     strokeContainer = strokeContainer + ', ' + value.text
-                                    keysetList.update({boundSet : strokeContainer})
                                 # print(value.text)
-                            print(strokeContainer)
+                            # print(strokeContainer)
+                            keysetList.update({boundSet: strokeContainer})
 
                     if keyBound is not None:
                         # print(keyBound.find('first').text)
                         if keyBound.find('first') is not None:
-                            print('test')
-                            print(keyBound.find('first').text)
-                            boundKeys.update({boundSet: keyBound.find('first').text})
-                            print(keyBound.find('second').text)
+                            # print('test')
+                            # print(keyBound.find('first').text)
+                            # print(keyBound.find('second').text)
+
                             boundKeyMode.update({boundSet: keyBound.find('second').text})
-                    boundSet += 1
+                            boundKeys.update({boundSet: keyBound.find('first').text})
 
-        pp.pprint(keysetList)
-        # pp.pprint(keybindings)
-        pp.pprint(boundKeys)
-        pp.pprint(boundKeyMode)
-            #
-            #         if child.tag == 'base':
-            #             if child.find('name').text is not None:
-            #                 print(child.find('name').text)
-            #                 if parent.find('keyName').text is not None:
-            #                     print('=======================')
-            #                     print('This should be a non empty key: ' + parent.find('keyName').text)
-            #                     print('=======================')
-            #                 elif parent.find('keyStroke').text is not None:
-            #                     print('=======================')
-            #                     for value in parent.find('keyStroke'):
-            #                         print('This should be a non empty string of key strokes: ' + value.text)
-            #                     print('=======================')
-            #         # pp.pprint(child.text)
-            #
-            # for ptr in root.iter('keyStroke'):
-            #     # print(ptr.getchildren())
-            #     # if ptr.getchildren() == []:
-            #         # print(ptr) # TODO Need to figure out how to walk back if this value is empty we need to check keyName
-            #     for value in ptr:
-            #         if value is not None:
-            #             # print(value.text)
-            #             keybindings.append(value.text)
-            #     if ptr.find('value0') is not None:
-            #         keysetList.append(keybindings.copy())
-            #         keybindings.clear()
-            #
-            # for assignedKey in root.findall('.//second'):
-            #     if assignedKey is not None:
-            #         for value in assignedKey:
-            #             if value.tag == 'second' or value.tag == 'first':
-            #                 val = value.text
-            #                 if val[:5] == 'Mouse':
-            #                     timestop = True
-            #                 elif val[:1] == 'M':
-            #                     timestop = True
-            #                 elif val[:3] == 'Win':
-            #                     timestop = True
-            #                 elif val[:3] == 'Hea':
-            #                     timestop = True
-            #                 elif val[:5] =='Brigh':
-            #                     timestop = True
-            #                 elif val[:4] == 'Key_':
-            #                     timestop = True
-            #                 else:
-            #                     if not timestop:
-            #                         if not mode:
-            #                             boundKeys.append(val)
-            #                             mode = True
-            #                         else:
-            #                             boundKeyMode.append(val)
-            #                             mode = False
-            #                     timestop = False
-            #                     # Stopped here, TODO: finish bound key finding and futur proof for mouse, headset, trash the rest?
-            #
-            # for type_tag in root.findall('ptr_wrapper'):
-            #     name = type_tag.find('id').text
-            #     print("Test" + name)
+                            if strokeContainer is None:
+                                strokeContainer = keyBound.find('first').text
+                                strokeContainer = strokeContainer + ', ' + keyBound.find('second').text
+                            else:
+                                strokeContainer = strokeContainer + ', ' + keyBound.find('first').text
+                                strokeContainer = strokeContainer + ', ' + keyBound.find('second').text
 
-        pp.pprint("==================================")
-        pp.pprint(keysetList)
-        pp.pprint("==================================")
-        # pp.pprint(keybindings)
-        print()
-        pp.pprint("==================================")
-        pp.pprint(boundKeys)
-        pp.pprint("==================================")
-        print()
-        pp.pprint("==================================")
-        pp.pprint(boundKeyMode)
-        pp.pprint("==================================")
+                            boundSet += 1
 
-        # for assignedKey in root.iter('second'):
-        #     print(len(assignedKey))
-        # for value in assignedKey:
-        #     if value.text == 'first':
-        #     print('-------------------------------')
-        #     print(value.text)
-        #     print('-------------------------------')
-        # if len(assignedKey) == 0:
-        #     print(assignedKey.text)
-        # if ptr.find('value0').text:
-        #     print("testing Text")
-        #     pp.pprint(ptr.get('value').text)
-        # end test
+                    # print(strokeContainer)
+                    keyCons.append(strokeContainer)
+            keyCons.append(profileName)
+            keyConPage.append(keyCons.copy())
+            keyCons = list()
 
+        # for page in keyConPage:
+        #     print(len(keyConPage))
+        #     print("NEW PAGE: ")
+        #     section = 1
+        #     for part in page:
+        #         if section == 1:
+        #             print('Part 1, Name and ShortCut: ' + part)
+        #             section = 2
+        #         else:
+        #             print('Part 2, BoundKey and Modifier: ' + part)
+        #             section = 1
 
-    # def scrapeICUE(self):
-    #     pass
-
-    # def xmltodict(self):
-    #     """ Returns the xml as a dict"""
-    #     with open('C:\\Dev\\Python-Education\\SimpleProjects\\Overlay\\Profiles\\Main.cueprofile') as fd:
-    #         return xmltodict.parse(fd.read())
+        return keyConPage
 
 
 class WinEventFilter(QAbstractNativeEventFilter):
@@ -217,7 +168,7 @@ class WinEventFilter(QAbstractNativeEventFilter):
         ret = self.keybinder.handler(eventType, message)
         return ret, 0
 
-
+pageHolder = dict()
 class SecondWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -230,10 +181,132 @@ class SecondWindow(QMainWindow):
             QtCore.Qt.X11BypassWindowManagerHint
         )
 
+        self.setGeometry(
+            QtWidgets.QStyle.alignedRect(
+                QtCore.Qt.LeftToRight, QtCore.Qt.AlignCenter,
+                QtCore.QSize(400, 400),
+                QtWidgets.qApp.desktop().availableGeometry()
+            ))
+        self.setStyleSheet("""QToolTip { 
+                                   background-color: black; 
+                                   color: white; 
+                                   border: black solid 1px
+                                   }""")
+
+        width = self.frameGeometry().width()
+        height = self.frameGeometry().height()
+        profileList = listifyFolderFiles(os.path.expandvars(r'%APPDATA%\Corsair\CUE\profiles'))
+        DATA = ImportProfile()
+
+        # profileList = ['C:\\Dev\\Python-Education\\SimpleProjects\\Overlay\\Profiles\\MainNew.cueprofile',
+        #                'C:\\Dev\\Python-Education\\SimpleProjects\\Overlay\\Profiles\\PyCharm.cueprofile']
+        # profileList = ['C:\\Dev\\Python-Education\\SimpleProjects\\Overlay\\Profiles\\PyCharm.cueprofile']
+        shortcutsParsed = DATA.scrapeall(profileList)
+        newButton = None
+        pagehold = 0
+        buttonList = list()
+        global pageHolder
+        nameHolder = list()
+
+        for page in shortcutsParsed:
+            # print(len(shortcutsParsed))
+            # print("NEW PAGE: ")
+            section = 1
+            shortcutCounter = 0
+            x = 20
+            y = 20
+            profileName = page.pop(-1)
+            nameHolder.append(profileName.text)
+            print(profileName.text)
+
+            for part in page:
+
+                if section == 1:
+                    # print('Part 1, Name and ShortCut: ' + part)
+                    shortcutName, shortcutKeys = part.split(",", 1)
+                    # print('Complete shortcut')
+                    # print('==================================')
+                    # print("This is the shortcut name: " + shortcutName)
+                    # print("This is the shortcut keys: " + shortcutKeys)
+
+                    section = 2
+                else:
+                    # print('Part 2, BoundKey and Modifier: ' + part)
+                    boundKey, modifier = part.split(",", 1)
+                    # print("This is the bound key: " + boundKey)
+                    # print("This is the modifier: " + modifier)
+                    # print('==================================')
+                    section = 1
+
+                if section == 1:
+                    if shortcutCounter == 9:
+                        x = x + 155
+                        y = 20
+                        shortcutCounter = 0
+
+                    labelNew = QPushButton(boundKey + ": " + shortcutName, self)
+                    labelNew.setToolTip("The Key(s) are: " + shortcutKeys + ". Modifier: " + modifier)
+                    labelNew.resize(150, 30)
+
+                    if shortcutCounter == 0:
+                        labelNew.move(x, y)
+                    else:
+                        y = y + 35
+                        labelNew.move(x, y)
+
+                    shortcutCounter += 1
+                    # labelNew.hide()
+                    buttonList.append(labelNew)
+                    section = 1
+
+            pageHolder.update({pagehold: buttonList.copy()})
+            pagehold += 1
+            buttonList.clear()
+
+        # only show first "page" on start
+        if pageHolder is not None:
+            pageSelectBox = QtWidgets.QComboBox(self)
+            pageSelectBox.resize(200,25)
+            pageSelectBox.move(int((width / 2) - (pageSelectBox.width() / 2)), int(height - 50))
+            pageSelectBox.activated.connect(self.changePage)
+
+        for key, page in pageHolder.items():
+            pageSelectBox.addItem(nameHolder[key])
+            for button in page:
+                if key == 0:
+                    button.show()
+                else:
+                    button.hide()
+
+        # c = 0
+        # for pages in pageHolder:
+        #     for button in pages:
+        #         if c == 0:
+        #             button.show()
+        #         else:
+        #             button.hide()
+        #     c += 1
+
+        # pybutton = QPushButton('Button', self)
+        # pybutton.resize(80, 30)
+        # pybutton.move(20, 5)
+
+
     def mousePressEvent(self, a0) -> None:
         global latch
         self.hide()
         latch = True
+
+    def changePage(self, wantedPage):
+        global pageHolder
+
+        pp.pprint(pageHolder)
+        for key, page in pageHolder.items():
+            for button in page:
+                if key == wantedPage:
+                    button.show()
+                else:
+                    button.hide()
 
 
 class MainWindow(QMainWindow):
@@ -249,12 +322,40 @@ class MainWindow(QMainWindow):
         self.setGeometry(
             QtWidgets.QStyle.alignedRect(
                 QtCore.Qt.LeftToRight, QtCore.Qt.AlignCenter,
-                QtCore.QSize(220, 32),
+                QtCore.QSize(400, 300),
                 QtWidgets.qApp.desktop().availableGeometry()
             ))
 
 
+def listifyFolderFiles(folderPath):
+
+    unsortedlist = os.listdir(folderPath)
+    print(folderPath)
+    returnlist = list()
+
+    for path in unsortedlist:
+        print(path)
+        filename, extenstion = os.path.splitext(path)
+        print(extenstion)
+        if extenstion == '.cueprofiledata':
+            print(folderPath)
+            fullpath = folderPath + '\\' + path
+            print(folderPath + '\\' + path)
+            returnlist.append(fullpath)
+            pp.pprint(fullpath)
+
+    return returnlist
+
 def main():
+    sys._excepthook = sys.excepthook
+
+    def exception_hook(exctype, value, traceback):
+        print(exctype, value, traceback)
+        sys._excepthook(exctype, value, traceback)
+        sys.exit(1)
+
+    sys.excepthook = exception_hook
+
     app = QtWidgets.QApplication(sys.argv)
     # window = MainWindow()
     window = SecondWindow()
@@ -263,10 +364,6 @@ def main():
     print("\tPress Ctrl+Shift+A any where to trigger a callback.")
     print("\tCtrl+Shift+F unregisters and re-registers previous callback.")
     print("\tCtrl+Shift+E exits the app.")
-
-    test = ImportProfile()
-    profileList = ['C:\\Dev\\Python-Education\\SimpleProjects\\Overlay\\Profiles\\Main.cueprofile']
-    test.scrapeall(profileList)
 
     # Setup a global keyboard shortcut to print "Hello World" on pressing
     # the shortcut
