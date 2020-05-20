@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""What Key Was It parses the iCUE profiles to find what keys are bound to what.
+"""What Key Was It: parses the iCUE profiles to find what keys are bound to what.
 TODO: other programs"""
 
 import os
@@ -107,7 +107,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
 
-        self.ui = uic.loadUi("C:\\Dev\\Python-Education\\SimpleProjects\\Overlay\\ui\\keyboard.ui")
+        # self.ui = uic.loadUi("ui\keyboard.ui", self)
 
         self.setWindowFlags(
             QtCore.Qt.WindowStaysOnTopHint |
@@ -251,7 +251,7 @@ def main():
     print("This will show a quick view of your keybindings (corsair only currently).")
     print("Until I can figure out how to hide this window, just minimize it.")
     print("\tPress Ctrl+Shift+F10 any where to trigger a callback.")
-    print("\tCtrl+Shift+F unregisters and re-registers previous callback.")
+    # print("\tCtrl+Shift+F unregisters and re-registers previous callback.")
     print("\tCtrl+Shift+E exits the app.")
 
     # Setup a global keyboard shortcut to print "Hello World" on pressing
@@ -293,7 +293,7 @@ def main():
     window.show()
     app.exec_()
     keybinder.unregister_hotkey(window.winId(), "Shift+Ctrl+F10")
-    keybinder.unregister_hotkey(window.winId(), "Shift+Ctrl+F")
+    # keybinder.unregister_hotkey(window.winId(), "Shift+Ctrl+F")
     keybinder.unregister_hotkey(window.winId(), "Shift+Ctrl+E")
 
 
